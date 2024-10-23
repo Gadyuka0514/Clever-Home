@@ -1,0 +1,43 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "db": "sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
+    "reseed": "sequelize db:seed:undo:all && sequelize db:seed:all",
+    "db:cr": "npx sequelize db:create",
+    "db:migr": "npx sequelize db:migrate",
+    "db:undomig": "npx sequelize db:migrate:undo:all",
+    "db:sdall": "npx sequelize db:seed:all",
+    "db:dr": "npx sequelize db:drop",
+    "db:remigr": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all",
+    "db:res": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@elbrus/eslint-config": "^1.0.0",
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "nodemon": "^3.1.7",
+    "sequelize-cli": "^6.6.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.4"
+  }
+}
