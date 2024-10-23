@@ -1,7 +1,7 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import MainPage from './components/pages/MainPage';
-import MessagesPage from './components/pages/MessagesPage';
+import DashboardPage from './components/pages/DashboardPage';
 import LoginPage from './components/pages/LoginPage';
 import SignupPage from './components/pages/SignupPage';
 import OneMessagePage from './components/pages/OneMessagePage';
@@ -11,9 +11,13 @@ import axiosInstance, { setAccessToken } from './services/axiosInstance';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import AccountPage from './components/pages/AccountPage';
 
+
+
 function App() {
-  // undefined | null | { id, name, email, ... }
+ 
   const [user, setUser] = useState();
+
+ 
 
   useEffect(() => {
     axiosInstance
@@ -27,19 +31,7 @@ function App() {
       });
   }, []);
 
-  const signupHandler = async (e, formData) => {
-    e.preventDefault();
-    const response = await axiosInstance.post('/auth/signup', formData);
-    setUser(response.data.user);
-    setAccessToken(response.data.accessToken);
-  };
 
-  const loginHandler = async (e, formData) => {
-    e.preventDefault();
-    const response = await axiosInstance.post('/auth/login', formData);
-    setUser(response.data.user);
-    setAccessToken(response.data.accessToken);
-  };
 
   const logoutHandler = async () => {
     await axiosInstance.get('/auth/logout');
@@ -57,8 +49,8 @@ function App() {
           element: <MainPage />,
         },
         {
-          path: '/messages',
-          element: <MessagesPage user={user} />,
+          path: '/dashboard',
+          element: <DashboardPage user={user} />,
         },
         {
           path: '/messages/:messageId',
@@ -77,11 +69,11 @@ function App() {
           children: [
             {
               path: '/login',
-              element: <LoginPage loginHandler={loginHandler} />,
+              element: <LoginPage setUser={setUser} />,
             },
             {
               path: '/signup',
-              element: <SignupPage signupHandler={signupHandler} />,
+              element: <SignupPage setUser={setUser} />,
             },
           ],
         },

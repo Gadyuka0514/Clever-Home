@@ -14,9 +14,10 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import axiosInstance, { setAccessToken } from '../../services/axiosInstance';
 
-export default function SignupPage({ signupHandler }) {
-  
+
+export default function SignupPage({ setUser }) {
   const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -24,6 +25,19 @@ export default function SignupPage({ signupHandler }) {
     password: '',
     confirmPassword: '',
   });
+
+  const navigate = useNavigate();
+
+  const signupHandler = async (e, formData) => {
+    e.preventDefault();
+    const response = await axiosInstance.post('/auth/signup', formData);
+    setUser(response.data.user);
+    setAccessToken(response.data.accessToken);
+    if (response.status === 200) {
+      navigate('/dashboard');
+    }
+    return alert('такой страницы нет');
+  };
 
   const handleChange = (e) =>
     setFormData({

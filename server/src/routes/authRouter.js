@@ -29,21 +29,17 @@ authRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   const targetUser = await User.findOne({ where: { email } });
-  console.log("🚀 ~ authRouter.post ~ targetUser:", targetUser)
   
   if (!targetUser) {
-    console.log("🚀 ~ authRouter.post ~ targetUser:", targetUser)
     return res.status(400).json({ text: 'Неверный email' });
   }
   const isValid = await bcrypt.compare(password, targetUser.password);
-  console.log("🚀 ~ authRouter.post ~ targetUser:", targetUser)
   
   if (!isValid) {
     return res.status(400).json({ text: 'Неверный пароль' });
   }
 
   const user = targetUser.get();
-  console.log("🚀 ~ authRouter.post ~ targetUser:", targetUser)
   delete user.hashpass;
   const { refreshToken, accessToken } = generateTokens({ user });
   res
