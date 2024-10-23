@@ -8,7 +8,7 @@ export default function NavBar({ user, logoutHandler }) {
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <HStack spacing={8} alignItems="center">
           <Box color="white" fontWeight="bold" fontSize="xl">
-            <Link as={RouterLink} to="/" color="white" fontWeight="medium">
+            <Link as={RouterLink} to="/messages" color="white" fontWeight="medium">
               Clever-Home
             </Link>
           </Box>
