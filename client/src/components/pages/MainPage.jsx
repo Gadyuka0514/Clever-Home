@@ -53,7 +53,13 @@ export default function MainPage() {
         <VStack spacing={4}>
           <Heading as="h3" size="md">
             Свяжитесь с нами
-          </Heading>         
+          </Heading>
+          <Text>
+            Github:{' '}
+            <Link href="https://github.com/Gadyuka0514">
+              https://github.com/Gadyuka0514
+            </Link>
+          </Text>
           <Text>&copy; Clever-Home. Все права защищены.</Text>
         </VStack>
       </Box>
