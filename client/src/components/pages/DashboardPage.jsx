@@ -1,36 +1,50 @@
 import { useState, useEffect,} from 'react';
-
 import {
-  IconButton,
+  // IconButton,
   Heading,
   Button,
   Box,
   SimpleGrid,
-  CloseButton,
-  Flex,
-  Icon,
-  useColorModeValue,
-  Text,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
-  VStack,
-  Square,
+  // CloseButton,
+  // Flex,
+  // Icon,
+  // useColorModeValue,
+  // Drawer,
+  // DrawerContent,
+  // useDisclosure,
+  // VStack,
+  // HStack,
+  // Square,
   Center,
-  HStack,
+  Text,
+  GridItem,
+  Grid,
+  ListItem,
+  List,
+  ListIcon,
+  Divider,
+  CardBody,
+  Card,
+  Link,
+  CardHeader,
+  CardFooter,
 } from '@chakra-ui/react';
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-} from 'react-icons/fi';
-import MessageCard from '../ui/MessageCard';
-import AddMessageForm from '../ui/AddMessageForm';
+
+import { 
+  // MdSettings,
+  MdOutlineBedroomParent,
+  MdOutlineBathroom,
+  MdCheckroom,
+  MdRestaurant,
+  MdMeetingRoom,
+  MdOutlineBedroomBaby,
+  MdLiveTv,
+} from 'react-icons/md';
 import axiosInstance from '../../services/axiosInstance';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import TimeWidget from '../widgets/TimeWidget'; 
+import WeatherWidget from '../widgets/WeatherWidget'; 
+
 
 export default function DashboardPage({ user }) {
   const [messages, setDashboard] = useState([]);
@@ -67,30 +81,178 @@ export default function DashboardPage({ user }) {
       alert(`Что-то пошло не так: ${error?.response?.data?.text}`);
     }
   };
+
   return (
-    <Box bg="teal.600">
-      <Flex></Flex>
-      {/* Приветствие */}
-      <Flex color="white" py={20} mt={165} justify="center" align="center">
-        <VStack spacing={4} textAlign="center">
-          <Box flex="1">       
-            <SimpleGrid minChildWidth="120px" spacing="30px">
-              <Box bg="tomato" height="80px">
-                <Text>Дата и время/Погода</Text>
-              </Box>
-              <Box bg="tomato" height="80px">
-                <Text>Список дел </Text>
-              </Box>
-              <Box bg="tomato" height="80px">
-                <Text>График</Text>
-              </Box>
-              <Box bg="tomato" height="80px">
-                <Text>Плеер</Text>
-              </Box>
-            </SimpleGrid>
-          </Box> 
-        </VStack>
-      </Flex>
-    </Box>
+    <Grid
+      m={10}
+      templateAreas={`
+        "header header"
+        "nav main"
+      `}
+      gridTemplateRows={'50px 1fr'}
+      gridTemplateColumns={'250px 1fr'}
+      h="800"
+      gap="1"
+      color="blackAlpha.700"
+      fontWeight="bold"
+    >
+      <GridItem borderRadius="20" pl="2" bg="gray.100" area={'nav'}>
+        <Card borderRadius="10" opacity="0.7" m={10}>
+          <CardBody>
+            <Center>
+              <Text>
+                <Link
+                  as={RouterLink}
+                  to="/dashboard"
+                  color="black"
+                  textDecoration="none"
+                  fontWeight="medium"
+                >
+                  Мой дом
+                </Link>
+              </Text>
+            </Center>
+          </CardBody>
+        </Card>
+        <Divider orientation="horizontal" />
+        <List spacing={50} m={10} mt={10}>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room1"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdMeetingRoom} color="green.500" />
+              Прихожая
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room2"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdLiveTv} color="green.500" />
+              Гостинная
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room3"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdOutlineBedroomParent} color="green.500" />
+              Спальня
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room4"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdOutlineBedroomBaby} color="green.500" />
+              Детская
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room5"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdRestaurant} color="green.500" />
+              Кухня
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room6"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdOutlineBathroom} color="green.500" />
+              Ванная комната
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              as={RouterLink}
+              to="/room7"
+              color="black"
+              textDecoration="none"
+              fontWeight="medium"
+            >
+              <ListIcon as={MdCheckroom} color="green.500" />
+              Гардероб
+            </Link>
+          </ListItem>
+        </List>
+      </GridItem>
+
+      <GridItem borderRadius="25" pl="2" bg="gray.100" area={'main'}>
+        <Center>
+          <SimpleGrid
+            p="10"
+            my="100"
+            spacing="10"
+            templateRows="repeat(2, 1fr)"
+            templateColumns="repeat(2, minmax(350px, 1fr))"
+          >
+            <GridItem colSpan={1}>
+              <Card align="center" borderRadius="15">
+                <CardHeader>
+                  <Heading size="md">Информация о погоде</Heading>
+                </CardHeader>
+                <CardBody p="10" align="center">
+                  <TimeWidget />
+                  <Divider />
+                  <Box w="375px!important">
+                    <WeatherWidget />
+                  </Box>
+                </CardBody>
+                <CardFooter></CardFooter>
+              </Card>
+            </GridItem>
+            <Card align="center" borderRadius="15">
+              <CardHeader>
+                <Heading size="md">Напоминания</Heading>
+              </CardHeader>
+              <CardBody>
+                <Text>Список дел</Text>
+                
+              </CardBody>
+              <CardFooter>
+                <Button>Добавить</Button>
+              </CardFooter>
+            </Card>
+            {/* <Card align="center" borderRadius="15">
+              <CardHeader>
+                <Heading size="md"> Графики</Heading>
+              </CardHeader>
+              <CardBody>
+                <Text>Картинка с графиком</Text>
+              </CardBody>
+              <CardFooter>
+                <Button>Открыть</Button>
+              </CardFooter>
+            </Card> */}
+          </SimpleGrid>
+        </Center>
+      </GridItem>
+    </Grid>
   );
 }

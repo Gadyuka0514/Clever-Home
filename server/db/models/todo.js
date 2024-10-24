@@ -4,21 +4,19 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ToDo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    static associate({House}) {
+      this.belongsTo(House, {foreignKey: 'houseId'})
     }
   }
-  ToDo.init({
-    Description: DataTypes.STRING,
-    HomeID: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ToDo',
-  });
+  ToDo.init(
+    {
+      description: DataTypes.STRING,
+      houseId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'ToDo',
+    },
+  );
   return ToDo;
 };

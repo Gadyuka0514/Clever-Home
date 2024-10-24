@@ -1,4 +1,5 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -7,22 +8,28 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      Description: {
-        type: Sequelize.STRING
+      description: {
+        type: Sequelize.STRING,
       },
-      HomeID: {
-        type: Sequelize.INTEGER
+      houseId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Houses',
+          key: 'id',
+        },
+        allowNull: true,
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

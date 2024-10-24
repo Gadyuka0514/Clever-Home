@@ -3,22 +3,37 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Houses', {
+    await queryInterface.createTable('Rooms', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      houseName: {
+      roomName: {
         type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: '',
       },
-      userId: {
+      isActive: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
+      state: {
+        type: Sequelize.STRING,
+        defaultValue: 'Активно',
+      },
+      useCaseId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'UseCases',
+          key: 'id',
+        },
+        allowNull: true,
+        onDelete: 'CASCADE',        
+      },
+      houseId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Houses',
           key: 'id',
         },
         allowNull: false,
@@ -27,16 +42,14 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Houses');
-  },
+    await queryInterface.dropTable('Rooms');
+  }
 };

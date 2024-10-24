@@ -1,27 +1,27 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Room extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    static associate({ House, Device, UseCase, Event }) {
+      this.belongsTo(House, { foreignKey: 'houseId' });
+      this.hasMany(Device, { foreignKey: 'roomNativeValue' });
+      this.belongsTo(UseCase, { foreignKey: 'useCaseId' });
+      this.hasMany(Event, { foreignKey: 'roomId' });
     }
   }
-  Room.init({
-    RoomName: DataTypes.STRING,
-    isActive: DataTypes.BOOLEAN,
-    State: DataTypes.STRING,
-    UseCaseID: DataTypes.INTEGER,
-    HomeID: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Room',
-  });
+  Room.init(
+    {
+      roomName: DataTypes.STRING,
+      isActive: DataTypes.BOOLEAN,
+      state: DataTypes.STRING,
+      useCaseId: DataTypes.INTEGER,
+      houseId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Room',
+    },
+  );
   return Room;
 };

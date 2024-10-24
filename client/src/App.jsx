@@ -10,8 +10,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance, { setAccessToken } from './services/axiosInstance';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import AccountPage from './components/pages/AccountPage';
-
-
+import { Center, Spinner, Box, Text, HStack } from '@chakra-ui/react';
 
 function App() {
  
@@ -31,13 +30,13 @@ function App() {
       });
   }, []);
 
-
-
   const logoutHandler = async () => {
     await axiosInstance.get('/auth/logout');
     setUser(null);
     setAccessToken('');
   };
+
+
 
   const router = createBrowserRouter([
     {
@@ -81,7 +80,16 @@ function App() {
     },
   ]);
 
-  if (user === undefined) return <h1>Loading...</h1>;
+  if (user === undefined) return (
+    <Box position="relative" height="100%">
+      <Center p="4" color="white" axis="both">
+        <HStack>
+          <Text color="black">Loading</Text>
+          <Spinner size="xl" color="blue.500" />
+        </HStack>
+      </Center>
+    </Box>
+  );
 
   return <RouterProvider router={router} />;
 }
