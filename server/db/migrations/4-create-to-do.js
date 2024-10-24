@@ -3,40 +3,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Houses', {
+    await queryInterface.createTable('ToDos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      houseName: {
+      description: {
         type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: '',
       },
-      userId: {
+      houseId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'Houses',
           key: 'id',
         },
-        allowNull: false,
+        allowNull: true,
         onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Houses');
-  },
+    await queryInterface.dropTable('ToDos');
+  }
 };

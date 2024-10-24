@@ -14,6 +14,7 @@ app.use(
     origin: true,
   }),
 );
+
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.static('public'));

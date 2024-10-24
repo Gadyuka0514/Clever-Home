@@ -1,36 +1,18 @@
 import {
   Box,
-  Button,
   Flex,
   HStack,
   Link,
   Text,
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
-  AccordionIcon,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  Accordion,
-  Input,
-  InputGroup,
-  InputLeftAddon,
   Wrap,
   WrapItem,
-  chakra,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
 } from '@chakra-ui/react';
-import { SettingsIcon, } from '@chakra-ui/icons';
-import { Icon } from '@chakra-ui/react';
-import { MdReceipt, MdExitToApp } from 'react-icons/md';
+import { MdReceipt, MdExitToApp, MdSettings } from 'react-icons/md';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 export default function NavBar({ user, logoutHandler }) {
@@ -43,15 +25,7 @@ export default function NavBar({ user, logoutHandler }) {
             <Link as={RouterLink} to="/dashboard" color="white" fontWeight="medium">
               Clever-Home
             </Link>
-          </Box>
-          {/* <HStack as="nav" spacing={4}>
-            <Link as={RouterLink} to="/" color="white" fontWeight="medium">
-              Главная
-            </Link>
-            <Link as={RouterLink} to="/messages" color="white" fontWeight="medium">
-              Сообщения
-            </Link>
-          </HStack> */}
+          </Box>         
         </HStack>
 
         <HStack spacing={4}>
@@ -73,7 +47,7 @@ export default function NavBar({ user, logoutHandler }) {
                 </MenuButton>
                 <MenuList>
                   <MenuItem
-                    onClick={() => logoutHandler().then(() => navigate('/profile'))}
+                    onClick={() => navigate('/profile')}
                   >
                     <HStack>
                       <Avatar bgColor="grey" color="black" name={user.name} src="" />{' '}
@@ -82,13 +56,13 @@ export default function NavBar({ user, logoutHandler }) {
                   </MenuItem>
                   <MenuItem
                     icon={<MdReceipt />}
-                    onClick={() => logoutHandler().then(() => navigate('/logs'))}
+                    onClick={() => navigate('/logs')}
                   >
                     Список событий
                   </MenuItem>
                   <MenuItem
-                    icon={<SettingsIcon />}
-                    onClick={() => logoutHandler().then(() => navigate('/settings'))}
+                    icon={<MdSettings />}
+                    onClick={() =>navigate('/settings')}
                   >
                     Настройки
                   </MenuItem>
@@ -100,28 +74,7 @@ export default function NavBar({ user, logoutHandler }) {
                     Выйти
                   </MenuItem>
                 </MenuList>
-              </Menu>
-              {/* <Wrap>
-                <WrapItem>
-                  <Avatar
-                    bgColor="white"
-                    color="black"
-                    colorScheme="teal"
-                    name={user.name}
-                    src=""
-                  />
-                </WrapItem>
-              </Wrap>
-              <Button as={RouterLink} to="/account" colorScheme="teal" variant="solid">
-                Аккаунт
-              </Button>
-              <Button
-                onClick={() => logoutHandler().then(() => navigate('/login'))}
-                colorScheme="teal"
-                variant="solid"
-              >
-                Выйти
-              </Button> */}
+              </Menu>             
             </>
           ) : (
             <></>
