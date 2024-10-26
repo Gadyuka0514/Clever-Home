@@ -25,13 +25,13 @@ export default function NavBar({ user, logoutHandler }) {
             <Link as={RouterLink} to="/dashboard" color="white" fontWeight="medium">
               Clever-Home
             </Link>
-          </Box>         
+          </Box>
         </HStack>
 
         <HStack spacing={4}>
           {user ? (
             <>
-              <Menu>
+              <Menu boxShadow="xl" bg="gray.500">
                 <MenuButton>
                   <Wrap>
                     <WrapItem>
@@ -46,24 +46,16 @@ export default function NavBar({ user, logoutHandler }) {
                   </Wrap>
                 </MenuButton>
                 <MenuList>
-                  <MenuItem
-                    onClick={() => navigate('/profile')}
-                  >
+                  <MenuItem onClick={() => navigate('/profile')}>
                     <HStack>
                       <Avatar bgColor="grey" color="black" name={user.name} src="" />{' '}
                       <Text>{user.name}</Text>
                     </HStack>
                   </MenuItem>
-                  <MenuItem
-                    icon={<MdReceipt />}
-                    onClick={() => navigate('/logs')}
-                  >
+                  <MenuItem icon={<MdReceipt />} onClick={() => navigate('/logs')}>
                     Список событий
                   </MenuItem>
-                  <MenuItem
-                    icon={<MdSettings />}
-                    onClick={() =>navigate('/settings')}
-                  >
+                  <MenuItem icon={<MdSettings />} onClick={() => navigate('/settings')}>
                     Настройки
                   </MenuItem>
                   <MenuItem
@@ -74,7 +66,7 @@ export default function NavBar({ user, logoutHandler }) {
                     Выйти
                   </MenuItem>
                 </MenuList>
-              </Menu>             
+              </Menu>
             </>
           ) : (
             <></>

@@ -16,7 +16,7 @@ const WeatherWidget = () => {
   }, []);
 
   return (
-    <div width="375px!important" ref={weatherWidgetRef}>
+    <div width="375px!important"  ref={weatherWidgetRef}>
       <a
         className="weatherwidget-io"
         href="https://forecast7.com/ru/55d7637d62/moscow/"

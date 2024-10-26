@@ -8,7 +8,6 @@ import {
   Button,
   Link,
 } from '@chakra-ui/react';
-import Feature from '../ui/Feature';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 export default function MainPage() {

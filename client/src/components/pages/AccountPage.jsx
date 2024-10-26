@@ -7,7 +7,7 @@ export default function AccountPage({ user }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get('/messages/my').then((response) => {
+    axiosInstance.get('/profile').then((response) => {
       setMessages(response.data);
     });
   }, []);
