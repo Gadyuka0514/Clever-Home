@@ -1,20 +1,9 @@
 import { useState, useEffect,} from 'react';
 import {
   // IconButton,
-  Heading,
-  Button,
+  Heading, 
   Box,
   SimpleGrid,
-  // CloseButton,
-  // Flex,
-  // Icon,
-  // useColorModeValue,
-  // Drawer,
-  // DrawerContent,
-  // useDisclosure,
-  // VStack,
-  // HStack,
-  // Square,
   Center,
   Text,
   GridItem,
@@ -44,7 +33,7 @@ import axiosInstance from '../../services/axiosInstance';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import TimeWidget from '../widgets/TimeWidget'; 
 import WeatherWidget from '../widgets/WeatherWidget'; 
-
+import TodoWidget from '../widgets/ToDoWidget/ToDoWidget'; 
 
 export default function DashboardPage({ user }) {
   const [messages, setDashboard] = useState([]);
@@ -71,11 +60,22 @@ export default function DashboardPage({ user }) {
     }
   };
 
-  const handleDeletePost = async (id) => {
+    useEffect(() => {
+      axiosInstance
+        .get('/rooms')
+        .then((res) => {
+          setDashboard(res.data.room);
+        })
+        .catch(() => {
+          setDashboard('');
+        });
+    }, []);
+
+  const handleGetRooms = async (id) => {
     try {
-      const response = await axiosInstance.delete(`/messages/${id}`);
+      const response = await axiosInstance.get(`/rooms`);
       if (response.status === 204)
-        setMessages(messages.filter((message) => message.id !== id));
+        setDashboard(messages.filter((room) => room.id !== id));
     } catch (error) {
       console.log(error);
       alert(`Что-то пошло не так: ${error?.response?.data?.text}`);
@@ -137,7 +137,7 @@ export default function DashboardPage({ user }) {
               fontWeight="medium"
             >
               <ListIcon as={MdLiveTv} color="green.500" />
-              Гостинная
+              Гостиная
             </Link>
           </ListItem>
           <ListItem>
@@ -231,13 +231,10 @@ export default function DashboardPage({ user }) {
               <CardHeader>
                 <Heading size="md">Напоминания</Heading>
               </CardHeader>
-              <CardBody>
-                <Text>Список дел</Text>
-                
+              <CardBody>             
+                  <TodoWidget />                
               </CardBody>
-              <CardFooter>
-                <Button>Добавить</Button>
-              </CardFooter>
+              <CardFooter></CardFooter>
             </Card>
             {/* <Card align="center" borderRadius="15">
               <CardHeader>

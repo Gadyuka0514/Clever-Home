@@ -23,6 +23,7 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'CASCADE',
+        allowNull: true,
       },
       isActive: {
         type: Sequelize.BOOLEAN,

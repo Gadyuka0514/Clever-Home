@@ -1,38 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import axiosInstance from '../../services/axiosInstance';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import {
-  IconButton,
-  Heading,
-  Button,
-  Box,
-  SimpleGrid,
-  CloseButton,
-  Flex,
-  Icon,
-  useColorModeValue,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
-  VStack,
-  HStack,
-  Square,
-  Center,
-  Text,
-  GridItem,
-  Grid,
-  ListItem,
-  List,
-  ListIcon,
-  Divider,
-  CardBody,
-  Card,
-  Link,
-  CardHeader,
-  CardFooter,
-} from '@chakra-ui/react';
-const { OPEN_WEATHER_API_KEY } = import.meta.env;
-
+import { useEffect, useRef } from 'react';
 
 const TimeWidget = () => {
   const timeElementRef = useRef(null); // ссылка на элемент span

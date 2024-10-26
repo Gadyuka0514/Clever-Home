@@ -17,7 +17,6 @@ function App() {
   const [user, setUser] = useState();
 
  
-
   useEffect(() => {
     axiosInstance
       .get('/tokens/refresh')
@@ -30,13 +29,12 @@ function App() {
       });
   }, []);
 
+
   const logoutHandler = async () => {
     await axiosInstance.get('/auth/logout');
     setUser(null);
     setAccessToken('');
   };
-
-
 
   const router = createBrowserRouter([
     {
