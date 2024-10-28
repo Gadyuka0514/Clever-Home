@@ -9,13 +9,14 @@ import ErrorPage from './components/pages/ErrorPage';
 import { useEffect, useState } from 'react';
 import axiosInstance, { setAccessToken } from './services/axiosInstance';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
-import AccountPage from './components/pages/AccountPage';
+import ProfilePage from './components/pages/ProfilePage';
 import { Center, Spinner, Box, Text, HStack } from '@chakra-ui/react';
 
 function App() {
  
   const [user, setUser] = useState();
-
+  
+  const [rooms, setDashboard] = useState([]);
  
   useEffect(() => {
     axiosInstance
@@ -36,6 +37,18 @@ function App() {
     setAccessToken('');
   };
 
+  const listName = useEffect(() => {
+    axiosInstance
+      .get('/rooms')
+      .then((res) => {
+        const roomName = res.data.map((el) => el.roomName);
+        setDashboard(roomName);
+      })
+      .catch(() => {
+        setDashboard('');
+      });
+  }, []); 
+
   const router = createBrowserRouter([
     {
       element: <Layout user={user} logoutHandler={logoutHandler} />,
@@ -47,17 +60,17 @@ function App() {
         },
         {
           path: '/dashboard',
-          element: <DashboardPage user={user} />,
+          element: <DashboardPage user={user} listName={listName} />,
         },
         {
-          path: '/messages/:messageId',
+          path: '/rooms/:roomId',
           element: <OneMessagePage user={user} />,
         },
         {
-          path: '/account',
+          path: '/profile',
           element: (
             <ProtectedRoute redirectPath="/login" isAllowed={!!user}>
-              <AccountPage user={user} />
+              <ProfilePage user={user} />
             </ProtectedRoute>
           ),
         },

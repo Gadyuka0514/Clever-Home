@@ -29,58 +29,14 @@ import {
   MdOutlineBedroomBaby,
   MdLiveTv,
 } from 'react-icons/md';
-import axiosInstance from '../../services/axiosInstance';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import TimeWidget from '../widgets/TimeWidget'; 
 import WeatherWidget from '../widgets/WeatherWidget'; 
-import TodoWidget from '../widgets/ToDoWidget/ToDoWidget'; 
+import TodoWidget from '../widgets/ToDoWidget/ToDoWidget';
 
-export default function DashboardPage({ user }) {
-  const [messages, setDashboard] = useState([]);
 
-  useEffect(() => {
-    axiosInstance.get('/dashboard').then((response) => {
-      setDashboard(response.data);
-    });
-  }, []);
-
-  const handleSubmitForm = async (event) => {
-    try {
-      event.preventDefault();
-      const formElement = event.target;
-      const formData = new FormData(formElement);
-      const response = await axiosInstance.post('/messages', formData);
-      if (response.status === 201) {
-        setDashboard((prev) => [response.data, ...prev]);
-        formElement.reset();
-      }
-    } catch (error) {
-      console.log(error);
-      alert(`Что-то пошло не так: ${error?.response?.data?.text}`);
-    }
-  };
-
-    useEffect(() => {
-      axiosInstance
-        .get('/rooms')
-        .then((res) => {
-          setDashboard(res.data.room);
-        })
-        .catch(() => {
-          setDashboard('');
-        });
-    }, []);
-
-  const handleGetRooms = async (id) => {
-    try {
-      const response = await axiosInstance.get(`/rooms`);
-      if (response.status === 204)
-        setDashboard(messages.filter((room) => room.id !== id));
-    } catch (error) {
-      console.log(error);
-      alert(`Что-то пошло не так: ${error?.response?.data?.text}`);
-    }
-  };
+export default function DashboardPage(listName) {
+  const [rooms, setDashboard] = useState([]);
 
   return (
     <Grid
@@ -113,8 +69,8 @@ export default function DashboardPage({ user }) {
               </Text>
             </Center>
           </CardBody>
-        </Card>
-        <Divider orientation="horizontal" />
+        </Card>        
+        <Divider orientation="horizontal" color="black"/>
         <List spacing={50} m={10} mt={10}>
           <ListItem>
             <Link
@@ -231,8 +187,8 @@ export default function DashboardPage({ user }) {
               <CardHeader>
                 <Heading size="md">Напоминания</Heading>
               </CardHeader>
-              <CardBody>             
-                  <TodoWidget />                
+              <CardBody>
+                <TodoWidget />
               </CardBody>
               <CardFooter></CardFooter>
             </Card>

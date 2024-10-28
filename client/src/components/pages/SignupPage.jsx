@@ -36,7 +36,7 @@ export default function SignupPage({ setUser }) {
     if (response.status === 200) {
       navigate('/dashboard');
     }
-    return alert('такой страницы нет');
+    // return alert('такой страницы нет');
   };
 
   const handleChange = (e) =>

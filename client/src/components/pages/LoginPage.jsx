@@ -15,7 +15,7 @@ import {
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import axiosInstance, { setAccessToken } from '../../services/axiosInstance';
 
-export default function LoginPage({ setUser}) {
+export default function LoginPage({setUser}) {
   const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -32,7 +32,7 @@ export default function LoginPage({ setUser}) {
     if (response.status === 200) {
       navigate('/dashboard');
     }
-    return alert('такой страницы нет');
+    // return alert('такой страницы нет');
   };
 
   const handleChange = (e) => {
